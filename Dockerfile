@@ -1,14 +1,18 @@
-# Use Java 17 base image
-FROM eclipse-temurin:17-jdk
-
-# Set working directory
+# Stage 1: Build the application
+FROM maven:3.9.4-eclipse-temurin-17 AS builder
 WORKDIR /app
 
-# Copy the built JAR file into the container
-COPY target/movies-0.0.1-SNAPSHOT.jar app.jar
+# Copy all files and build the JAR
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Expose port
+# Stage 2: Run the application
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+
+# Copy the JAR from the build stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expose port and run
 EXPOSE 8080
-
-# Start the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

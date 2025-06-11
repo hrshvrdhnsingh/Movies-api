@@ -17,10 +17,10 @@ import java.util.Optional;
 @RequestMapping("/api/v1/movies") // All endpoints in this start from this base URL
 public class MovieController {
     @Autowired
-    private MovieService movieService;
+    private MovieService movieService; // Spring automatically injects the movieService
 
     @GetMapping
-    public ResponseEntity<List<Movie>> allMovies() { // ResponseEntity is a wrapper for HTTP requests
+    public ResponseEntity<List<Movie>> allMovies() { // ResponseEntity is a wrapper for HTTP requests with status code
         return new ResponseEntity<List<Movie>>(movieService.allMovies(), HttpStatus.OK);
     }
 

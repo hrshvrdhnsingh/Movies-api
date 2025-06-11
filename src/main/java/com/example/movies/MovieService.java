@@ -7,14 +7,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-// MovieService class acts as an intermediary between the controller (which handles HTTP requests)
-// and the repository (which interacts with MongoDB)
+// MovieService class acts as an intermediary between the controller (which handles HTTP requests) and the repository (which
+// interacts with MongoDB)
 
-
-// Dependency Injection - to manage dependencies automatically instead of manually creating objects.
-@Service
+@Service // Business-logic component where complex operations are handled
 public class MovieService {
-    @Autowired // Spring injects MovieRepository automatically. SO now MovieService depends upon MovieRepository without creatung an object
+    @Autowired // Spring injects MovieRepository automatically. SO now MovieService depends upon MovieRepository without creating an object
     private MovieRepository movieRepository; // Reference of the actual repository
 
     public List<Movie> allMovies() {
@@ -25,3 +23,8 @@ public class MovieService {
         return movieRepository.findMovieByImdbId(imdbId);
     }
 }
+
+// Dependency Injection - When the app starts, Spring looks for @Annotations, @Autowired and creates their classes and stores in
+// it's container. It sees the Autowired field and sees that the MovieService needs a movieRespository. IT looks in it's container
+// gets the object and assigns it to this field. So we never have to write new MovieRepository(). Spring hanldes object creaetino
+// and injection.

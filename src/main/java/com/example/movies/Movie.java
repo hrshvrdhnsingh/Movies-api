@@ -12,14 +12,14 @@ import java.util.List;
 
 @Document(collection = "movies") // Lets it know that this class represents each document in the movie collection in database
 @Data // ensures there are getter and setter for each of the private members
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor // creates a constructor with all fields as parameter
+@NoArgsConstructor // Creates a default constructor with no parameters
 public class Movie {
     @Id
     private ObjectId id;
     private String imdbId, title, releaseDate, trailerLink, poster;
     private List<String> genres, backdrops;
-    @DocumentReference // TO tell the framework that is a collection of ids referring the Reviews class
+    @DocumentReference // TO tell the framework that is a collection of ids referring the Reviews class, instead of embedding them
     private List<Review> reviewIds;
 }
 
